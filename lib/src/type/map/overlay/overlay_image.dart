@@ -29,8 +29,7 @@ class NOverlayImage with NMessageableWithMap {
     required BuildContext context,
   }) async {
     final pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    final imageBytes = await WidgetToImageUtil.widgetToImageByte(widget,
-        size: size, pixelRatio: pixelRatio);
+    final imageBytes = await WidgetToImageUtil.widgetToImageByte(context, widget, size: size, pixelRatio: pixelRatio);
     final path = await ImageUtil.saveImage(imageBytes);
     return NOverlayImage._(path: path, mode: _NOverlayImageMode.widget);
   }
@@ -47,10 +46,7 @@ class NOverlayImage with NMessageableWithMap {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NOverlayImage &&
-          runtimeType == other.runtimeType &&
-          _path == other._path &&
-          _mode == other._mode;
+      other is NOverlayImage && runtimeType == other.runtimeType && _path == other._path && _mode == other._mode;
 
   @override
   int get hashCode => _path.hashCode ^ _mode.hashCode;
